@@ -1,0 +1,9 @@
+# ignore virtual env
+.venv/
+
+# ignore compiled python garbage
+__pycache__/
+*.pyc
+
+# ignore big datasets
+testing_dataset/*.csv
