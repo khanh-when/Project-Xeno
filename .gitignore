@@ -7,3 +7,7 @@ __pycache__/
 
 # ignore big datasets
 testing_dataset/*.csv
+
+# ignore testing files
+pandas_basic.ipynb
+pandas_data_cleaning.ipynb
