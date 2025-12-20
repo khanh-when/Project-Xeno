@@ -1,6 +1,9 @@
 # ignore virtual env
 .venv/
 
+# vscode settings
+.vscode/
+
 # ignore compiled python garbage
 __pycache__/
 *.pyc
