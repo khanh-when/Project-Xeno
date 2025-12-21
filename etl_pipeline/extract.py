@@ -1,14 +1,14 @@
 import yfinance as yf
 import pandas as pd
 
-def extraction(start_date: str, end_date: str, ticker: str) -> pd.DataFrame:
+def extraction(start_date: str, end_date: str, *ticker: str) -> pd.DataFrame:
     '''Extract historical stock data from Yahoo Finance in a given date range'''
 
     def reformat(*dates) -> pd.to_datetime:
         '''parse start/end dates of mixed formats to datetime object'''
         return pd.to_datetime(dates, format='mixed')
     
-    return yf.download(ticker, *reformat(start_date, end_date))
+    return yf.download(*ticker, *reformat(start_date, end_date), keepna=True)
 
 
 def main():
@@ -16,10 +16,10 @@ def main():
     end = '2025/3/1'
     data = extraction(start, end, 'AAPL')
 
-    print(data.head())
-    print(f"Rows: {data.shape[0]} | Columns: {data.shape[1]}")
-
+    print(data.head().to_string())
+    print(data.columns)
     print(data.index)
+    print(f"Rows: {data.shape[0]} | Columns: {data.shape[1]}")
 
 if __name__ == '__main__':
     main()
