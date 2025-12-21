@@ -1,11 +1,18 @@
 # Project-Xeno
 
-TBA | Tentative
+**Stock Market ETL Data Automation Pipeline**
 ____________________
-
-
-
-## **Stock Market ETL Data Automation Pipeline**
+### Note: **Subject To Change**
+```text
+Automation Pipeline ─────► pipeline.py
+                            │
+                            ├─ open DB connection
+                            ├─ extract
+                            ├─ transform
+                            ├─ load (cursor, data)
+                            ├─ commit
+                            └─ close DB connection
+```
 
 ## Project Layout
 

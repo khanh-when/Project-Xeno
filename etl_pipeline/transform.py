@@ -1,7 +1,7 @@
 import pandas as pd
 from extract import extraction
 
-def tickerMap(ticker: list[str]) -> dict:
+def tickerMap(ticker: list[str]) -> dict[str, dict]:
     '''Create a dictionary template for each ticker'''
     return {tick:{} for tick in ticker}
 
@@ -9,7 +9,7 @@ def reorderData(data: pd.DataFrame) -> pd.DataFrame:
     '''Reorder DataFrame columns to Open, Low, High, Close, Volume'''
     return data.loc[:, ['Open', 'Low', 'High', 'Close', 'Volume']]
 
-def restructureData(data: pd.DataFrame, ticker):
+def restructureData(data: pd.DataFrame, ticker) -> dict[str, pd.DataFrame]:
     '''Restructure extracted DataFrame into dictionary of DataFrames per ticker'''
     tickerData = tickerMap(ticker)
     df = reorderData(data)
@@ -22,9 +22,6 @@ def restructureData(data: pd.DataFrame, ticker):
         tickerData[tick]['Volume'] = df.Volume[tick]
     
     return dict(zip(tickerData.keys(), list(map(lambda x: pd.DataFrame(tickerData[x]), tickerData))))
-
-
-
 
 def main():
     

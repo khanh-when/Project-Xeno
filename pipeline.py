@@ -1,13 +1,14 @@
 import mariadb
 
 '''
-pipeline.py
- ├─ open DB connection
- ├─ extract
- ├─ transform
- ├─ load(cursor, data)
- ├─ commit
- └─ close connection
+Automation Pipeline ─────► pipeline.py
+                            │
+                            ├─ open DB connection
+                            ├─ extract
+                            ├─ transform
+                            ├─ load (cursor, data)
+                            ├─ commit
+                            └─ close DB connection
  '''
 
 def connection(db_name):
