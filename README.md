@@ -23,3 +23,22 @@ Automation Pipeline ─────► pipeline.py
 ![alt text](<misc/Stock Market Project - Frame 1.jpg>)
 
 
+## **Extraction Layer**
+
+## **Transformation Layer**
+```text
+Raw Market Data (yFinance API)
+                        │
+                        ▼
+┌──────────────── Extraction ────────────────┐
+│     Open | Low | High | Close | Volume     │
+└────────────────────────────────────────────┘
+                        │
+                        ▼
+┌────────────── Normalized Time-Series Table ──────────────┐
+│   StockID | Date | Open | Low | High | Close | Volume    │
+└──────────────────────────────────────────────────────────┘
+
+```
+
+## **Load Layer**
