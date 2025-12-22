@@ -9,7 +9,8 @@ __pycache__/
 *.pyc
 
 # ignore big datasets
-testing_dataset/*.csv
+stock_exchange_data/
+testing_dataset/
 
 # ignore testing files
 pandas_basic.ipynb
