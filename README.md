@@ -1,6 +1,10 @@
 # Project-Xeno
 
 **Stock Market ETL Data Automation Pipeline**
+
+## Notice:
+Relational Schema is a working in-progress
+
 ____________________
 ### Note: **Subject To Change**
 ```text
