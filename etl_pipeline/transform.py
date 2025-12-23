@@ -67,8 +67,8 @@ def main():
     df = extraction('2025/1/1', '2025/2/1', ['AAPL', 'MSFT'])
     
     data = formatData(df, ['AAPL', 'MSFT'])
-    for item in data:
-        print(data[item].head().to_string())
+    for ticker in data:
+        print(data[ticker].head().to_string())
 
     transformedData = transformation(df, ['AAPL', 'MSFT'])
 

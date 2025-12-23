@@ -1,19 +1,10 @@
 import mariadb
+from etl_pipeline.extract import extraction
+from etl_pipeline.transform import transformation
 
-'''
-Automation Pipeline ─────► pipeline.py
-                            │
-                            ├─ open DB connection
-                            ├─ extract
-                            ├─ transform
-                            ├─ load (cursor, data)
-                            ├─ commit
-                            └─ close DB connection
- '''
 
 def connection(db_name):
     '''Establish Database Connection to MariaDB Server'''
-
     try:
         return mariadb.connect(
             user = 'root',
@@ -21,7 +12,7 @@ def connection(db_name):
             host = 'localhost',
             port = 3306,
             database = db_name,
-            autocommit = True
+            autocommit = False
         )
     
     except mariadb.Error as e:
@@ -29,8 +20,11 @@ def connection(db_name):
         raise mariadb.Error
 
 
-if __name__ == '__main__':
+def main():
     conn = connection('testdb')
+
+if __name__ == '__main__':
+    main()
 
 
 

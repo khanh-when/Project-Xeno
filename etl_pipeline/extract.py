@@ -8,7 +8,7 @@ def extraction(start_date: str, end_date: str, ticker: list[str]) -> pd.DataFram
         '''parse start/end dates of mixed formats to datetime object'''
         return pd.to_datetime(dates, format='mixed')
     
-    return yf.download(ticker, *reformat(start_date, end_date), keepna=True)
+    return yf.download(ticker, *reformat(start_date, end_date), keepna=True, progress=False)
 
 
 def main():
