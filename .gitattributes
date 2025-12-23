@@ -1,2 +1,3 @@
 # allow SQL as a Valid language
-*.sql linguist-language=SQL
+*.sql linguist-detectable=true
+*.sql linguist-language=sql
