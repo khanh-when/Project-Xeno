@@ -1,0 +1,2 @@
+# allow SQL as a Valid language
+*.sql linguist-language=SQL
