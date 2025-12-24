@@ -1,6 +1,6 @@
 import pandas as pd
 import datetime
-from extract import extraction
+# from extract import extraction
 
 def tickerMap(ticker: list[str]) -> dict[str, dict]:
     '''Create a dictionary template for each ticker'''
@@ -64,16 +64,18 @@ def transformation(df: pd.DataFrame, ticker: list[str]) -> list[(str, datetime.d
     return processedLst
 
 def main():
-    df = extraction('2025/1/1', '2025/2/1', ['AAPL', 'MSFT'])
+    # df = extraction('2025/1/1', '2025/2/1', ['AAPL', 'MSFT'])
     
-    data = formatData(df, ['AAPL', 'MSFT'])
-    for ticker in data:
-        print(data[ticker].head().to_string())
+    # data = formatData(df, ['AAPL', 'MSFT'])
+    # for ticker in data:
+    #     print(data[ticker].head().to_string())
 
-    transformedData = transformation(df, ['AAPL', 'MSFT'])
+    # transformedData = transformation(df, ['AAPL', 'MSFT'])
 
-    for i in range(40):
-        print(transformedData[i])
+    # for i in range(40):
+    #     print(transformedData[i])
+    pass    
+
 
 if __name__ == '__main__':
     main()
