@@ -3,7 +3,7 @@ from etl_pipeline.extract import extraction
 from etl_pipeline.transform import transformation, formatData
 from etl_pipeline.load import loader
 
-
+# create database connection
 def connection(db_name):
     '''Establish Database Connection to MariaDB Server'''
     try:
@@ -21,8 +21,8 @@ def connection(db_name):
         raise mariadb.OperationalError
 
 def main():
-    start = '3/1/2025'
-    end = '5/1/2025'
+    start = '1/1/2010'
+    end = '12/10/2025'
     tickers = 'AAPL, MSFT'.split(', ')
 
     df = extraction(start, end, tickers)

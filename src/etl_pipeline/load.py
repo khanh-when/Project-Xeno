@@ -1,7 +1,6 @@
-import pandas as pd
 import mariadb
 
-def loader(conn: mariadb.connect, data: list):
+def loader(conn: mariadb.connect, data: list) -> None:
     '''load transformed data into MariaDB server in batches of 10 rows per execution'''
     query = "INSERT INTO stock_prices VALUES (?, ?, ?, ?, ?, ?, ?)"
 
@@ -11,7 +10,7 @@ def loader(conn: mariadb.connect, data: list):
                 cursor.executemany(query, data[i:i+10])
         
         print(f"Successfully Inserted {len(data)} Values")
-    
+
     except mariadb.IntegrityError as e:
         print(f"Integrity Error: {e}")
         raise mariadb.IntegrityError

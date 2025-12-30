@@ -10,6 +10,8 @@ def extraction(start_date: str, end_date: str, ticker: list[str]) -> pd.DataFram
     
     return yf.download(ticker, *reformat(start_date, end_date), keepna=True, progress=False)
 
+def extractTicker(ticker: list[str]) -> dict[str: yf.Ticker]:
+    return yf.Tickers(ticker).tickers
 
 def main():
     start = '2025/1/1'
