@@ -82,9 +82,9 @@ def transformation(df: pd.DataFrame, ticker: list[str]) -> list[(str, datetime.d
 def transformMetaData(metaData: dict[str: yf.Ticker]):
     '''transform ticker metadata into a list of tuples'''
 
-    def extractInfo(info: dict) -> tuple:
+    def extractInfo(metaInfo: dict) -> tuple:
         '''extract relevant metadata information into tuple'''
-        return (info['symbol'], info['displayName'], info['industry'], info['sector'], info['fullExchangeName'], info['typeDisp'])
+        return (metaInfo['symbol'], metaInfo['displayName'], metaInfo['industry'], metaInfo['sector'], metaInfo['fullExchangeName'], metaInfo['typeDisp'])
     
     processedLst = []
 
@@ -92,7 +92,7 @@ def transformMetaData(metaData: dict[str: yf.Ticker]):
     for ticker in metaData.keys():
 
         # extract info dictionary
-        data = metaData[ticker].get_info()
+        data = metaData[ticker].info
 
         # append extracted info as tuple to processedLst    
         processedLst.append(extractInfo(data))
@@ -114,6 +114,7 @@ def main():
     # x = transformMetaData(tickerMetaData)
 
     # print(x)
+
     pass
 
 if __name__ == '__main__':
