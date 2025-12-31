@@ -9,7 +9,7 @@ def connection(db_name):
     try:
         return mariadb.connect(
             user = 'root',
-            password = '2123<>69',
+            password = '',
             host = 'localhost',
             port = 3306,
             database = db_name,
