@@ -1,7 +1,28 @@
 import mariadb
 
-def loader(conn: mariadb.connect, data: list) -> None:
-    '''load transformed data into MariaDB server in batches of 10 rows per execution'''
+def load_stocks(conn, metaData: list) -> None:
+    '''load transformed metadata into MariaDB server in batches of 10 rows per execution'''
+    query = "INSERT INTO stocks VALUES (?, ?, ?, ?, ?, ?)"
+
+    try:
+        with conn.cursor() as cursor:
+            for i in range(0, len(metaData), 10):
+                cursor.executemany(query, metaData[i: i+10])
+
+        print(f"Successfully inserted stocks: {len(metaData)} Items")
+    
+    except mariadb.IntegrityError as e:
+        print(f"Integrity Error: {e}")
+        raise mariadb.IntegrityError
+
+    except mariadb.Error as e:
+        print(f"Error: {e}")
+        raise mariadb.Error
+
+    return 
+
+def load_stock_prices(conn: mariadb.connect, data: list) -> None:
+    '''load transformed price data into MariaDB server in batches of 10 rows per execution'''
     query = "INSERT INTO stock_prices VALUES (?, ?, ?, ?, ?, ?, ?)"
 
     try:
@@ -9,7 +30,7 @@ def loader(conn: mariadb.connect, data: list) -> None:
             for i in range(0, len(data), 10):
                 cursor.executemany(query, data[i:i+10])
         
-        print(f"Successfully Inserted {len(data)} Values")
+        print(f"Successfully Inserted {len(data)} Items")
 
     except mariadb.IntegrityError as e:
         print(f"Integrity Error: {e}")
@@ -18,6 +39,11 @@ def loader(conn: mariadb.connect, data: list) -> None:
     except mariadb.Error as e:
         print(f"Error: {e}")
         raise mariadb.Error
+    
+    return
+
+def loader():
+    pass
 
 def main():
     pass
