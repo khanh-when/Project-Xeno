@@ -1,20 +1,36 @@
 import mariadb
 
 def load_stocks(conn, metaData: list) -> None:
-    '''load transformed metadata into MariaDB server in batches of 10 rows per execution'''
+    '''Tail-recursively loads transformed stock metadata into the MariaDB database in fixed-size batches'''
+    
+    # prepared insert query
     query = "INSERT INTO stocks VALUES (?, ?, ?, ?, ?, ?)"
 
+    # try to insert metadata in batches
     try:
         with conn.cursor() as cursor:
-            for i in range(0, len(metaData), 10):
-                cursor.executemany(query, metaData[i: i+10])
+            for idx in range(0, len(metaData), 10):
+                cursor.executemany(query, metaData[idx: idx+10])
 
         print(f"Successfully inserted stocks: {len(metaData)} Items")
     
+    # on integrity error, split the metadata and retry
     except mariadb.IntegrityError as e:
         print(f"Integrity Error: {e}")
-        raise mariadb.IntegrityError
 
+        # base case: if metadata length is 1 or less, return
+        if len(metaData) <= 1:
+            return
+        
+        split = len(metaData) // 2
+
+        # recursively call load_stocks on first half
+        load_stocks(conn, metaData[idx:split])
+
+        # recursively call load_stocks on second half
+        load_stocks(conn, metaData[split:])
+
+    # except other mariadb errors
     except mariadb.Error as e:
         print(f"Error: {e}")
         raise mariadb.Error
@@ -24,8 +40,10 @@ def load_stocks(conn, metaData: list) -> None:
 def load_stock_prices(conn: mariadb.connect, data: list) -> None:
     '''Tail-recursively loads transformed stock price records into the MariaDB database in fixed-size batches'''
 
+    # prepared insert query
     query = "INSERT INTO stock_prices VALUES (?, ?, ?, ?, ?, ?, ?)"
     
+    # try to insert data in batches
     try:
         with conn.cursor() as cursor:
             for idx in range(0, len(data), 10):
@@ -49,6 +67,7 @@ def load_stock_prices(conn: mariadb.connect, data: list) -> None:
         # recursively call load_stock_prices on second half
         load_stock_prices(conn, data[split:])
 
+    # except other mariadb errors
     except mariadb.Error as e:
         print(f"Error: {e}")
         raise mariadb.Error
