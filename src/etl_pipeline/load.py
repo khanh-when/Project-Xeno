@@ -12,7 +12,7 @@ def load_stocks(conn, metaData: list) -> None:
             for idx in range(0, len(metaData), 10):
                 cursor.executemany(query, metaData[idx: idx+10])
 
-        print(f"Successfully inserted stocks: {len(metaData)} Items")
+        print(f"Successfully inserted {len(metaData)} stock metadata records")
     
     # on integrity error, split the metadata and retry
     except mariadb.IntegrityError as e:
@@ -49,7 +49,7 @@ def load_stock_prices(conn: mariadb.connect, data: list) -> None:
             for idx in range(0, len(data), 10):
                 cursor.executemany(query, data[idx:idx+10])
         
-        print(f"Successfully Inserted {len(data)} Items")
+        print(f"Successfully Inserted {len(data)} Stock Price Records")
 
     #  on integrity error, split the data and retry
     except mariadb.IntegrityError as e:
@@ -74,8 +74,14 @@ def load_stock_prices(conn: mariadb.connect, data: list) -> None:
     
     return
 
-def loader():
-    pass
+# orchestrator function
+def loader(conn: mariadb.connect, metaData: list, data: list) -> None:
+    '''Orchestrates the loading of stock metadata and stock price records into the MariaDB database'''
+    load_stocks(conn, metaData)
+
+    load_stock_prices(conn, data)
+
+    return
 
 def main():
     pass
