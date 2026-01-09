@@ -1,9 +1,9 @@
 import mariadb
 from etl_pipeline.extract import extraction, extractTicker
 from etl_pipeline.transform import formatData, transformation, transformMetaData
-from etl_pipeline.load import load_stocks, load_stock_prices, loader
+from etl_pipeline.load import loader
 
-# create database connection
+
 def connection(db_name):
     '''Establish Database Connection to MariaDB Server'''
     try:
@@ -21,39 +21,37 @@ def connection(db_name):
         raise mariadb.OperationalError
 
 def main():
-    start = '1/1/2025'
-    end = '2/1/2025'
-    tickers = 'AAPL, MSFT'.split(', ')
+    start = '1/2/2025'
+    end = '2/20/2025'
+    tickers = 'AAPL, MSFT, TSLA, GOOG, NVDA'.split(', ')
 
     df = extraction(start, end, tickers)
     df2 = formatData(df, tickers)
 
-    for ticker in df2.values():
-        print(ticker.head())
+    # for ticker in df2.values():
+    #     print(ticker.head())
 
-    print(list(df2.keys()))
+    # print(list(df2.keys()))
 
     data = transformation(df, tickers)
 
-    for i in range(40):
-        print(data[i])
+    # for i in range(40):
+    #     print(data[i])
     
-    print(len(data))
+    # print(len(data))
 
 
     metaData = extractTicker(tickers)
 
-    print(metaData)
+    # print(metaData)
 
     metaData2 = transformMetaData(metaData)
 
-    print(metaData2)
+    # print(metaData2)
 
     conn = connection('market_data')
-    
-    load_stocks(conn, metaData2)
 
-    load_stock_prices(conn, data)
+    loader(conn, metaData2, data)
 
     conn.commit()    
 

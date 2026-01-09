@@ -1,5 +1,7 @@
 # Project-Xeno
 
+# **Status: HALTED**
+
 **Stock Market ETL Data Automation Pipeline**
 
 ## Notice:
@@ -42,3 +44,8 @@ Raw Market Data (yFinance API)
 ```
 
 ## **Load Layer**
+
+
+
+https://crontab.guru/
+

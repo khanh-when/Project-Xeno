@@ -74,11 +74,13 @@ def load_stock_prices(conn: mariadb.connect, data: list) -> None:
     
     return
 
-# orchestrator function
 def loader(conn: mariadb.connect, metaData: list, data: list) -> None:
     '''Orchestrates the loading of stock metadata and stock price records into the MariaDB database'''
+    
+    # Due to primary key constraints, load stock metadata first
     load_stocks(conn, metaData)
 
+    # next, load stock price records
     load_stock_prices(conn, data)
 
     return
