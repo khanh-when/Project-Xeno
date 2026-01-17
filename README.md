@@ -1,8 +1,6 @@
-# Project-Xeno
+# End-to-End Financial Data Pipeline
 
 # **Status: HALTED**
-
-**Stock Market ETL Data Automation Pipeline**
 
 ## Notice:
 Relational Schema is a working in-progress
